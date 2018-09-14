@@ -10,6 +10,7 @@ public class ButtonMasher : MonoBehaviour {
     public TextMesh ScoreText; //Display text for the player score
     public TextMesh TimerText; //Display text for the time remaining
     public float gameLength; // How many seconds will the game last
+    public TextMesh MessageText; // Display a message to the player
 
     private float TimerLabel = 0; // Numeric Time Values for our remaining time
     private int ScoreLabel = 0; // Numeric Data values of our Score
@@ -40,6 +41,9 @@ public class ButtonMasher : MonoBehaviour {
             if (gameRunning == true)
             {
                 gameOverSound.Play();
+
+                // show the player their score
+                MessageText.text = " Time Up! You Scored = " + ScoreLabel.ToString();
             } // end of if gameRunning = true
             
             gameRunning = false;
@@ -48,6 +52,7 @@ public class ButtonMasher : MonoBehaviour {
         } // End of if statement when time <= 0
 
     } // End of Update()
+
 
 
     // Responds to event from Unity that the object has been clicked
