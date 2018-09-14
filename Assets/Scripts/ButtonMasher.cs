@@ -11,6 +11,7 @@ public class ButtonMasher : MonoBehaviour {
     public TextMesh TimerText; //Display text for the time remaining
     public float gameLength; // How many seconds will the game last
     public TextMesh MessageText; // Display a message to the player
+    public AudioSource startSound; // sound that will play at the start of game
 
     private float TimerLabel = 0; // Numeric Time Values for our remaining time
     private int ScoreLabel = 0; // Numeric Data values of our Score
@@ -85,6 +86,9 @@ public class ButtonMasher : MonoBehaviour {
 
             //update visual score
             ScoreText.text = ScoreLabel.ToString();
+
+            // play start game sound
+            startSound.Play();
         }
        
     } // End of onMouseDown()
