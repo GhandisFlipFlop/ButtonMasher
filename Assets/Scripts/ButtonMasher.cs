@@ -6,12 +6,14 @@ public class ButtonMasher : MonoBehaviour {
 
     // Data for our class
     public AudioSource clickSound; // Sound that will play when we click on the button
+    public AudioSource gameOverSound; // Sound that will play when the game time = 0
     public TextMesh ScoreText; //Display text for the player score
     public TextMesh TimerText; //Display text for the time remaining
     public float gameLength; // How many seconds will the game last
 
     private float TimerLabel = 0; // Numeric Time Values for our remaining time
     private int ScoreLabel = 0; // Numeric Data values of our Score
+    private bool gameRunning = true;
 
 	// Use this for initialization
 	    void Start () {
@@ -32,6 +34,19 @@ public class ButtonMasher : MonoBehaviour {
         // Update the visual time remaining
         TimerText.text = (Mathf.CeilToInt(TimerLabel)).ToString();
 
+        // Check if we have run out of time
+        if (TimerLabel <= 0)
+        {
+            if (gameRunning == true)
+            {
+                gameOverSound.Play();
+            } // end of if gameRunning = true
+            
+            gameRunning = false;
+            TimerLabel = 0;
+
+        } // End of if statement when time <= 0
+
     } // End of Update()
 
 
@@ -39,12 +54,17 @@ public class ButtonMasher : MonoBehaviour {
     private void OnMouseDown()
     {
         Debug.Log("onMouseDown method was called");
-        // Trigger our click sound causing buttonClick audio to play
-        clickSound.Play();
-        // Increase the player score by 1 point
-        ScoreLabel = ScoreLabel + 1;
-        // Update visual score
-        ScoreText.text = ScoreLabel.ToString();
+        // Check if the game is still running
+        if (gameRunning == true)
+        {
+            // Trigger our click sound causing buttonClick audio to play
+            clickSound.Play();
+            // Increase the player score by 1 point
+            ScoreLabel = ScoreLabel + 1;
+            // Update visual score
+            ScoreText.text = ScoreLabel.ToString();
+        } // End of if gameRunning
+       
     } // End of onMouseDown()
 
 
